@@ -29,10 +29,7 @@ end
 
 IO.puts "AoC 2019 - 4"
 
-from = 245318
-to = 765747
-
-to..from
+245318..765747
   |> Enum.filter(fn candidate -> 
     parts = candidate
       |> Integer.to_string

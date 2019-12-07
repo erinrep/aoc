@@ -44,11 +44,9 @@ defmodule Helpers do
   end
 
   def get_coords(wire) do
-    Enum.reduce(wire, MapSet.new, fn line, acc -> 
-      line
-        |> MapSet.new
-        |> MapSet.union(acc)
-    end)
+    wire
+      |> List.flatten
+      |> MapSet.new
   end
 
   def get_intersections(central_port, a_wire, b_wire) do    

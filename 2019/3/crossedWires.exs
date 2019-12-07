@@ -10,39 +10,82 @@ defmodule Helpers do
   def add_line({{x, y}, wire}, {"U", distance}) do
     line = y..distance + y
       |>Enum.map(&({x, &1}))
-      |>MapSet.new
 
-    {{x, y + distance}, MapSet.union(wire, line)}
+    {{x, y + distance}, List.insert_at(wire, -1, line)}
   end
   def add_line({{x, y}, wire}, {"R", distance}) do
     line = x..distance + x
       |>Enum.map(&({&1, y}))
-      |>MapSet.new
 
-    {{x + distance, y}, MapSet.union(wire, line)}
+    {{x + distance, y}, List.insert_at(wire, -1, line)}
   end
   def add_line({{x, y}, wire}, {"D", distance}) do
     line = y - distance..y
       |>Enum.map(&({x, &1}))
-      |>MapSet.new
+      |>Enum.reverse
 
-    {{x, y - distance}, MapSet.union(wire, line)}
+    {{x, y - distance}, List.insert_at(wire, -1, line)}
   end
   def add_line({{x, y}, wire}, {"L", distance}) do
     line = x - distance..x
       |>Enum.map(&({&1, y}))
-      |>MapSet.new
+      |>Enum.reverse
 
-    {{x - distance, y}, MapSet.union(wire, line)}
+    {{x - distance, y}, List.insert_at(wire, -1, line)}
   end
 
-  def make_wire(wire, start, directions) do
+  def make_wire(start, directions) do
     {_last, final} = directions
-      |> Enum.reduce({start, wire}, fn direction, acc -> 
+      |> Enum.reduce({start, []}, fn direction, acc -> 
         Helpers.add_line(acc, direction)
       end)
 
     final
+  end
+
+  def get_coords(wire) do
+    Enum.reduce(wire, MapSet.new, fn line, acc -> 
+      line
+        |> MapSet.new
+        |> MapSet.union(acc)
+    end)
+  end
+
+  def get_intersections(central_port, a_wire, b_wire) do    
+    a_coords = get_coords(a_wire)
+    b_coords = get_coords(b_wire)
+
+    a_coords
+      |> MapSet.intersection(b_coords)
+      |> MapSet.delete(central_port)
+  end
+
+  def closest_manhattan_distance({offset_x, offset_y}, intersections) do
+    intersections
+      |> Enum.map(fn {x, y} -> 
+        Kernel.abs(x - offset_x) + Kernel.abs(y - offset_y)
+      end)
+      |> Enum.min
+  end
+
+  def steps_to_point(destination, wire) do
+    wire
+      |> Stream.take_while(&(destination != &1))
+      |> Enum.count
+  end
+
+  def min_steps(central_port, a_wire, b_wire) do
+    a = Enum.reduce(a_wire, [], fn line, acc -> 
+      acc ++ Enum.drop(line, -1)
+    end)
+    b = Enum.reduce(b_wire, [], fn line, acc -> 
+      acc ++ Enum.drop(line, -1)
+    end)
+
+    central_port
+      |> get_intersections(a_wire, b_wire)
+      |> Enum.map(&(steps_to_point(&1, a) + steps_to_point(&1, b)))
+      |> Enum.min
   end
 end
 
@@ -59,23 +102,17 @@ case File.read("wireBlueprints.txt") do
       end)
 
     central_port = {1, 1}
-    {offset_x, offset_y} = central_port
 
-    a_wire = [central_port]
-      |> MapSet.new
-      |> Helpers.make_wire(central_port, a_directions)
+    a_wire = Helpers.make_wire(central_port, a_directions)
+    b_wire = Helpers.make_wire(central_port, b_directions)
+    intersections = Helpers.get_intersections(central_port, a_wire, b_wire)
 
-    b_wire = [central_port]
-      |> MapSet.new
-      |> Helpers.make_wire(central_port, b_directions)
+    central_port
+      |> Helpers.closest_manhattan_distance(intersections)
+      |> IO.inspect
 
-    a_wire
-      |> MapSet.intersection(b_wire)
-      |> MapSet.delete({1, 1})
-      |> Enum.map(fn {x, y} -> 
-        Kernel.abs(x - offset_x) + Kernel.abs(y - offset_y)
-      end)
-      |> Enum.min
+    central_port
+      |> Helpers.min_steps(a_wire, b_wire)
       |> IO.inspect
     
   {:error, :enoent} -> nil

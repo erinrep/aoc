@@ -33,31 +33,21 @@ defmodule Helpers do
     count_hops(root, p, orbits, hops + 1)
   end
 
-  def get_common_ancestor(orbits, planet1, planet2) do
-    direct_orbits = get_direct_orbits(orbits)
+  def get_common_ancestor(direct_orbits, planet1, planet2) do
+    planet1_ancestors = get_ancestors(planet1, direct_orbits, [])
+    planet2_ancestors = get_ancestors(planet2, direct_orbits, [])
     
-    [a, b] = [planet1, planet2]
-      |> Enum.map(fn planet ->
-        planet
-          |> get_ancestors(direct_orbits, [])
-          |> MapSet.new
-      end)
-    
-    {common_ancestor, _hops} = a
-    |> MapSet.intersection(b)
+    {common_ancestor, _hops} = planet1_ancestors
+    |> MapSet.intersection(planet2_ancestors)
     |> MapSet.to_list
-    |> Enum.map(fn planet -> 
-      {planet, count_hops("COM", planet, direct_orbits, 0)}
-    end)
-    |> Enum.sort(fn ({_p1, h1}, {_p2, h2}) -> 
-      h1 < h2
-    end)
+    |> Enum.map(&({&1, count_hops("COM", &1, direct_orbits, 0)}))
+    |> Enum.sort(fn ({_p1, h1}, {_p2, h2}) -> h1 < h2 end)
     |> List.last
 
     common_ancestor
   end
 
-  def get_ancestors("COM", _orbits, ancestors), do: ancestors
+  def get_ancestors("COM", _orbits, ancestors), do: MapSet.new(ancestors)
   def get_ancestors(planet, orbits, ancestors) do
     {p, _children} = Enum.find(orbits, fn {_planet, children} -> 
       MapSet.member?(children, planet)
@@ -79,7 +69,7 @@ case File.read("localOrbits.txt") do
     
     IO.inspect(Helpers.get_total_orbits(planets, direct_orbits))
 
-    common_ancestor = Helpers.get_common_ancestor(orbits, "YOU", "SAN")
+    common_ancestor = Helpers.get_common_ancestor(direct_orbits, "YOU", "SAN")
     hops_for_you = Helpers.count_hops(common_ancestor, "YOU", direct_orbits, 0)
     hops_for_santa = Helpers.count_hops(common_ancestor, "SAN", direct_orbits, 0)
     IO.inspect(hops_for_you + hops_for_santa - 2)

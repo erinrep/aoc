@@ -87,7 +87,7 @@ defmodule Helpers do
   end
 end
 
-IO.puts "AoC 2019 - 3"
+IO.puts "AoC 2019 - Day 3: Crossed Wires"
 
 case File.read("wireBlueprints.txt") do
   {:ok, contents} ->

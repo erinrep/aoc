@@ -19,7 +19,7 @@ defmodule IntcodeComputer do
   end
 end
 
-IO.puts "AoC 2019 - 2"
+IO.puts "AoC 2019 - Day 2: 1202 Program Alarm"
 
 desired_result = 
   System.argv()

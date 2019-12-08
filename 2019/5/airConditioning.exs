@@ -168,7 +168,7 @@ defmodule IntcodeComputer do
   end
 end
 
-IO.puts "AoC 2019 - 5"
+IO.puts "AoC 2019 - Day 5: Sunny with a Chance of Asteroids"
 
 case File.read("intcode.txt") do
   {:ok, contents} ->

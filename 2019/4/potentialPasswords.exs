@@ -27,7 +27,7 @@ defmodule Helpers do
   def never_decreases(list), do: Enum.sort(list) == list
 end
 
-IO.puts "AoC 2019 - 4"
+IO.puts "AoC 2019 - Day 4: Secure Container"
 
 245318..765747
   |> Enum.filter(fn candidate -> 

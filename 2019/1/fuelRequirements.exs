@@ -9,7 +9,7 @@ defmodule Helpers do
   end
 end
 
-IO.puts "AoC 2019 - 1"
+IO.puts "AoC 2019 - Day 1: The Tyranny of the Rocket Equation"
 
 case File.read("masses.txt") do
   {:ok, contents} ->

@@ -38,11 +38,11 @@ defmodule Helpers do
     planet2_ancestors = get_ancestors(planet2, direct_orbits, [])
     
     {common_ancestor, _hops} = planet1_ancestors
-    |> MapSet.intersection(planet2_ancestors)
-    |> MapSet.to_list
-    |> Enum.map(&({&1, count_hops("COM", &1, direct_orbits, 0)}))
-    |> Enum.sort(fn ({_p1, h1}, {_p2, h2}) -> h1 < h2 end)
-    |> List.last
+      |> MapSet.intersection(planet2_ancestors)
+      |> MapSet.to_list
+      |> Enum.map(&({&1, count_hops("COM", &1, direct_orbits, 0)}))
+      |> Enum.sort(fn ({_p1, h1}, {_p2, h2}) -> h1 < h2 end)
+      |> List.last
 
     common_ancestor
   end
@@ -61,8 +61,8 @@ IO.puts "AoC 2019 - Day 6: Universal Orbit Map"
 case File.read("localOrbits.txt") do
   {:ok, contents} ->
     orbits = contents
-    |> String.split("\n", trim: true)
-    |> Enum.map(&(String.split(&1, ")", trim: true)))
+      |> String.split("\n", trim: true)
+      |> Enum.map(&(String.split(&1, ")", trim: true)))
 
     planets = Helpers.get_planet_list(orbits)
     direct_orbits = Helpers.get_direct_orbits(orbits)

@@ -1,7 +1,7 @@
 defmodule IntcodeComputer do
   def noun_spot, do: 1
   def verb_spot, do: 2
-  # air onditioner unit
+  # air conditioner unit
   # def system_id, do: 1
   # thermal radiators
   def system_id, do: 5

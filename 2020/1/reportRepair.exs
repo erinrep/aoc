@@ -9,13 +9,10 @@ case File.read("expenses.txt") do
 
     IO.puts "Part 1"
     expenses
-      |> Enum.flat_map(fn expense ->
-        case Enum.find(expenses, &(expense + &1 == sum_to_find)) do
-          nil -> []
-          num -> [num * expense]
-        end
+      |> Enum.find_value(fn expense ->
+        num = Enum.find(expenses, &(expense + &1 == sum_to_find))
+        if num, do: num * expense
       end)
-      |> List.first
       |> IO.inspect
 
     IO.puts "Part 2"
@@ -23,13 +20,10 @@ case File.read("expenses.txt") do
       |> Enum.flat_map(fn expense ->
         Enum.map(expenses, &({expense, &1}))
       end)
-      |> Enum.flat_map(fn {a, b} -> 
-        case Enum.find(expenses, &(a + b + &1 == sum_to_find)) do
-          nil -> []
-          c -> [a * b * c]
-        end
+      |> Enum.find_value(fn {a, b} -> 
+        c = Enum.find(expenses, &(a + b + &1 == sum_to_find))
+        if c, do: a * b * c
       end)
-      |> List.first
       |> IO.inspect
     
   {:error, :enoent} -> nil

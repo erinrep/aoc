@@ -23,22 +23,19 @@ case File.read("expenses.txt") do
       |> Enum.map(fn expense ->
         Enum.map(expenses, &(expense + &1))
       end)
-      |> Enum.with_index
-      |> Enum.flat_map(fn {sums, index} ->
+      |> Enum.flat_map(fn sums ->
         sums
-        |> Enum.with_index
-        |> Enum.flat_map(fn {sum, inner_index} -> 
-          expenses
-            |> Enum.map(&({sum + &1, index, inner_index}))
-            |> Enum.with_index
+        |> Enum.flat_map(fn sum -> 
+          case Enum.find(expenses, &(sum + &1 == sum_to_find)) do
+            nil -> []
+            num -> [num]
+          end
         end)
       end)
-      |> Enum.find(fn {{sum, _, _}, _} -> 
-        sum == sum_to_find
-      end)
-
-      {{sum_to_find, a, b}, c} = indexes
-      IO.inspect(Enum.at(expenses, a) * Enum.at(expenses, b) * Enum.at(expenses, c))
+      |> Enum.sort
+      |> Enum.dedup
+      |> Enum.reduce(fn x, acc -> x * acc end)
+      |> IO.inspect
     
   {:error, :enoent} -> nil
 end

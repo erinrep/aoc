@@ -20,21 +20,16 @@ case File.read("expenses.txt") do
 
     IO.puts "Part 2"
     expenses
-      |> Enum.map(fn expense ->
-        Enum.map(expenses, &(expense + &1))
+      |> Enum.flat_map(fn expense ->
+        Enum.map(expenses, &({expense, &1}))
       end)
-      |> Enum.flat_map(fn sums ->
-        sums
-        |> Enum.flat_map(fn sum -> 
-          case Enum.find(expenses, &(sum + &1 == sum_to_find)) do
-            nil -> []
-            num -> [num]
-          end
-        end)
+      |> Enum.flat_map(fn {a, b} -> 
+        case Enum.find(expenses, &(a + b + &1 == sum_to_find)) do
+          nil -> []
+          c -> [a * b * c]
+        end
       end)
-      |> Enum.sort
-      |> Enum.dedup
-      |> Enum.reduce(fn x, acc -> x * acc end)
+      |> List.first
       |> IO.inspect
     
   {:error, :enoent} -> nil

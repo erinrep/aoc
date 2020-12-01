@@ -19,7 +19,7 @@ case File.read("expenses.txt") do
       |> IO.inspect
 
     IO.puts "Part 2"
-    indexes = expenses
+    expenses
       |> Enum.map(fn expense ->
         Enum.map(expenses, &(expense + &1))
       end)

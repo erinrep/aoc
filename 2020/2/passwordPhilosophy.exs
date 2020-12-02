@@ -21,6 +21,24 @@ case File.read("passwords.txt") do
       end)
       |> Enum.count(&(&1))
       |> IO.inspect
+
+    IO.puts "Part 2"
+    passwords
+      |> Enum.map(fn [pattern, password] ->
+        [positions, letter] = String.split(pattern)
+        parts = String.split(password, "", trim: true)
+        num_matching = positions
+          |> String.split("-")
+          |> Enum.map(fn position -> 
+            p = String.to_integer(position) - 1
+            Enum.at(parts, p) == letter
+          end)
+          |> Enum.dedup
+          |> Enum.count
+        num_matching != 1
+      end)
+      |> Enum.count(&(&1))
+      |> IO.inspect
     
   {:error, :enoent} -> nil
 end

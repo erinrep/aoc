@@ -27,7 +27,7 @@ case File.read("passwords.txt") do
       |> Enum.map(fn [pattern, password] ->
         [positions, letter] = String.split(pattern)
         parts = String.split(password, "", trim: true)
-        num_matching = positions
+        rules_met = positions
           |> String.split("-")
           |> Enum.map(fn position -> 
             p = String.to_integer(position) - 1
@@ -35,7 +35,7 @@ case File.read("passwords.txt") do
           end)
           |> Enum.dedup
           |> Enum.count
-        num_matching != 1
+        rules_met != 1
       end)
       |> Enum.count(&(&1))
       |> IO.inspect

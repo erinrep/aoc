@@ -15,7 +15,7 @@ case File.read("passwords.txt") do
           |> Enum.map(&(String.to_integer(&1)))
         occurrences = password
           |> String.split("", trim: true)
-          |> Enum.frequencies()
+          |> Enum.frequencies
           |> Map.get(letter, 0)
         min <= occurrences && max >= occurrences
       end)

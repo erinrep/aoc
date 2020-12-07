@@ -3,17 +3,16 @@ IO.puts "AoC 2020 - Day 7: Handy Haversacks"
 defmodule Helpers do
   def find_parent_bags(_rules, []), do: []
   def find_parent_bags(rules, bag) do
-    bags = rules
-      |> Enum.flat_map(fn rule ->
-        [parent, child] = String.split(rule, "contain")
-        case String.contains?(child, bag) do 
-          true ->[String.replace(parent, ~r/ bag.+/, "")] 
-          false -> [] 
-        end
-      end)
+    bags = Enum.flat_map(rules, fn rule ->
+      [parent, child] = String.split(rule, "contain")
+      case String.contains?(child, bag) do 
+        true ->[String.replace(parent, ~r/ bag.+/, "")] 
+        false -> [] 
+      end
+    end)
 
-    Enum.concat(bags, Enum.flat_map(bags, fn a -> 
-      Helpers.find_parent_bags(rules, a)
+    Enum.concat(bags, Enum.flat_map(bags, fn bag -> 
+      Helpers.find_parent_bags(rules, bag)
     end))
   end
 end

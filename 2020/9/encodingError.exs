@@ -20,7 +20,7 @@ case File.read("numbers.txt") do
     preamble_length = 25
     {_preamble, numbers_to_test} = Enum.split(numbers, preamble_length)
 
-    numbers_to_test
+    invalid_number = numbers_to_test
       |> Enum.with_index
       |> Enum.find_value(fn {num, index} -> 
         {prev_nums, _remainder} = Enum.split(numbers, index + preamble_length)
@@ -33,6 +33,23 @@ case File.read("numbers.txt") do
         if !is_sum?, do: num
       end)
       |> IO.inspect
+
+      IO.puts "Part 2"
+      numbers
+        |> Enum.with_index
+        |> Enum.find_value(fn {_num, index} -> 
+          {_prev_nums, remainder} = Enum.split(numbers, index)
+          sums = Enum.scan(remainder, fn n, acc -> 
+            n + acc
+          end)
+          i = Enum.find_index(sums, &(&1 == invalid_number))
+
+          if i do
+            addends = Enum.slice(numbers, index..index+i)
+            Enum.min(addends) + Enum.max(addends)
+          end
+        end)
+        |> IO.inspect
 
   {:error, :enoent} -> nil
 end

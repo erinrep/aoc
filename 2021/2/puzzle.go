@@ -15,11 +15,12 @@ func partOne(directions [][]string) {
 	for _, direction := range directions {
 		num, _ := strconv.ParseInt(direction[1], 0, 64)
 		command := direction[0]
-		if command == "forward" {
+		switch command {
+		case "forward":
 			distance += num
-		} else if command == "down" {
+		case "down":
 			depth += num
-		} else {
+		case "up":
 			depth -= num
 		}
 	}
@@ -35,12 +36,13 @@ func partTwo(directions [][]string) {
 	for _, direction := range directions {
 		num, _ := strconv.ParseInt(direction[1], 0, 64)
 		command := direction[0]
-		if command == "forward" {
+		switch command {
+		case "forward":
 			distance += num
 			depth += (aim * num)
-		} else if command == "down" {
+		case "down":
 			aim += num
-		} else {
+		case "up":
 			aim -= num
 		}
 	}
@@ -56,7 +58,7 @@ func main() {
 	scanner := bufio.NewScanner(file)
 	var directions [][]string
 	for scanner.Scan() {
-		directions = append(directions, strings.Split(scanner.Text(), " "))
+		directions = append(directions, strings.Fields(scanner.Text()))
 	}
 
 	partOne(directions)

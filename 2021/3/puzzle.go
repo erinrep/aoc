@@ -12,15 +12,7 @@ func partOne(diagnostics [][]string) {
 	var gammaRate []string
 	var epsilonRate []string
 	for i := 0; i < len(diagnostics[0]); i++ {
-		ones := 0
-		zeros := 0
-		for _, d := range diagnostics {
-			if d[i] == "1" {
-				ones++
-			} else {
-				zeros++
-			}
-		}
+		ones, zeros := numBitsInPosition(diagnostics, i)
 		if ones > zeros {
 			gammaRate = append(gammaRate, "1")
 			epsilonRate = append(epsilonRate, "0")

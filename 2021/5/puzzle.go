@@ -15,6 +15,87 @@ type ventLine struct {
 	y2 int64
 }
 
+func findDanger(ventLines []ventLine, maxX int64, maxY int64, includePart2 bool) {
+	ventMap := make([][]int, maxX+1)
+	for i := range ventMap {
+		ventMap[i] = make([]int, maxY+1)
+	}
+
+	for _, line := range ventLines {
+		isVertical := line.x1 == line.x2
+		isHorizontal := line.y1 == line.y2
+
+		if isHorizontal {
+			start := line.x1
+			end := line.x2
+			if line.x1 > line.x2 {
+				start = line.x2
+				end = line.x1
+			}
+			for i := start; i <= end; i++ {
+				ventMap[line.y1][i] += 1
+			}
+		} else if isVertical {
+			start := line.y1
+			end := line.y2
+			if line.y1 > line.y2 {
+				start = line.y2
+				end = line.y1
+			}
+			for i := start; i <= end; i++ {
+				ventMap[i][line.x1] += 1
+			}
+		} else if includePart2 {
+			startX := line.x1
+			startY := line.y1
+			endX := line.x2
+			endY := line.y2
+			var incX int64 = 1
+			var incY int64 = 1
+			if startX > endX && startY > endY {
+				startX = line.x2
+				endX = line.x1
+				startY = line.y2
+				endY = line.y1
+			} else if startX < endX && startY > endY {
+				incY = -1
+			} else if startX > endX && startY < endY {
+				startX = line.x2
+				endX = line.x1
+				startY = line.y2
+				endY = line.y1
+				incY = -1
+			}
+			i := startX
+			j := startY
+			for {
+				ventMap[j][i] += 1
+				i += incX
+				j += incY
+				if i > endX {
+					break
+				}
+			}
+		}
+	}
+
+	danger := 0
+	for _, row := range ventMap {
+		//fmt.Println(row)
+		for _, p := range row {
+			if p >= 2 {
+				danger++
+			}
+		}
+	}
+
+	part := "One"
+	if includePart2 {
+		part = "Two"
+	}
+	fmt.Println(fmt.Sprintf("Part %s: %d", part, danger))
+}
+
 func main() {
 	fmt.Println("Day 5: Hydrothermal Venture")
 
@@ -49,48 +130,6 @@ func main() {
 		}
 	}
 
-	ventMap := make([][]int, maxX+1)
-	for i := range ventMap {
-		ventMap[i] = make([]int, maxY+1)
-	}
-
-	for _, line := range ventLines {
-		isVertical := line.x1 == line.x2
-		isHorizontal := line.y1 == line.y2
-
-		if isHorizontal {
-			start := line.x1
-			end := line.x2
-			if line.x1 > line.x2 {
-				start = line.x2
-				end = line.x1
-			}
-			for i := start; i <= end; i++ {
-				ventMap[line.y1][i] += 1
-			}
-		}
-		if isVertical {
-			start := line.y1
-			end := line.y2
-			if line.y1 > line.y2 {
-				start = line.y2
-				end = line.y1
-			}
-			for i := start; i <= end; i++ {
-				ventMap[i][line.x1] += 1
-			}
-		}
-	}
-
-	danger := 0
-	for _, row := range ventMap {
-		//fmt.Println(row)
-		for _, p := range row {
-			if p >= 2 {
-				danger++
-			}
-		}
-	}
-
-	fmt.Println(fmt.Sprintf("Part One: %d", danger))
+	findDanger(ventLines, maxX, maxY, false)
+	findDanger(ventLines, maxX, maxY, true)
 }

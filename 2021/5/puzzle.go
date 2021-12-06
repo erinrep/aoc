@@ -9,13 +9,13 @@ import (
 )
 
 type ventLine struct {
-	x1 int64
-	x2 int64
-	y1 int64
-	y2 int64
+	x1 int
+	x2 int
+	y1 int
+	y2 int
 }
 
-func findDanger(ventLines []ventLine, maxX int64, maxY int64, includePart2 bool) {
+func findDanger(ventLines []ventLine, maxX int, maxY int, includePart2 bool) {
 	ventMap := make([][]int, maxX+1)
 	for i := range ventMap {
 		ventMap[i] = make([]int, maxY+1)
@@ -50,8 +50,8 @@ func findDanger(ventLines []ventLine, maxX int64, maxY int64, includePart2 bool)
 			startY := line.y1
 			endX := line.x2
 			endY := line.y2
-			var incX int64 = 1
-			var incY int64 = 1
+			var incX int = 1
+			var incY int = 1
 			if startX > endX && startY > endY {
 				startX = line.x2
 				endX = line.x1
@@ -103,8 +103,8 @@ func main() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	var ventLines []ventLine
-	var maxX int64 = 0
-	var maxY int64 = 0
+	var maxX int = 0
+	var maxY int = 0
 
 	for scanner.Scan() {
 		coord := strings.Split(scanner.Text(), " -> ")
@@ -114,19 +114,19 @@ func main() {
 		y1, _ := strconv.ParseInt(one[1], 0, 64)
 		x2, _ := strconv.ParseInt(two[0], 0, 64)
 		y2, _ := strconv.ParseInt(two[1], 0, 64)
-		vl := ventLine{x1: x1, x2: x2, y1: y1, y2: y2}
+		vl := ventLine{x1: int(x1), x2: int(x2), y1: int(y1), y2: int(y2)}
 		ventLines = append(ventLines, vl)
-		if x1 > maxX {
-			maxX = x1
+		if vl.x1 > maxX {
+			maxX = vl.x1
 		}
-		if x2 > maxX {
-			maxX = x2
+		if vl.x2 > maxX {
+			maxX = vl.x2
 		}
-		if y1 > maxY {
-			maxY = y1
+		if vl.y1 > maxY {
+			maxY = vl.y1
 		}
-		if y2 > maxY {
-			maxY = y2
+		if vl.y2 > maxY {
+			maxY = vl.y2
 		}
 	}
 

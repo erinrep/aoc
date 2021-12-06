@@ -9,19 +9,19 @@ import (
 )
 
 func partOne(directions [][]string) {
-	var depth int64 = 0
-	var distance int64 = 0
+	var depth int = 0
+	var distance int = 0
 
 	for _, direction := range directions {
 		num, _ := strconv.ParseInt(direction[1], 0, 64)
 		command := direction[0]
 		switch command {
 		case "forward":
-			distance += num
+			distance += int(num)
 		case "down":
-			depth += num
+			depth += int(num)
 		case "up":
-			depth -= num
+			depth -= int(num)
 		}
 	}
 
@@ -29,21 +29,21 @@ func partOne(directions [][]string) {
 }
 
 func partTwo(directions [][]string) {
-	var aim int64 = 0
-	var depth int64 = 0
-	var distance int64 = 0
+	var aim int = 0
+	var depth int = 0
+	var distance int = 0
 
 	for _, direction := range directions {
 		num, _ := strconv.ParseInt(direction[1], 0, 64)
 		command := direction[0]
 		switch command {
 		case "forward":
-			distance += num
-			depth += (aim * num)
+			distance += int(num)
+			depth += (aim * int(num))
 		case "down":
-			aim += num
+			aim += int(num)
 		case "up":
-			aim -= num
+			aim -= int(num)
 		}
 	}
 

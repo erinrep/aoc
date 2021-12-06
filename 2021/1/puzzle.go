@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func numIncreases(nums []int64) int {
+func numIncreases(nums []int) int {
 	increased := 0
 	for i, d := range nums {
 		if i > 0 && d > nums[i-1] {
@@ -17,12 +17,12 @@ func numIncreases(nums []int64) int {
 	return increased
 }
 
-func partOne(depths []int64) {
+func partOne(depths []int) {
 	fmt.Println(fmt.Sprintf("Part One: %d", numIncreases(depths)))
 }
 
-func partTwo(depths []int64) {
-	var windows []int64
+func partTwo(depths []int) {
+	var windows []int
 
 	for i, d := range depths {
 		if i < len(depths)-2 {
@@ -39,11 +39,11 @@ func main() {
 	file, _ := os.Open("input.txt")
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
-	var depths []int64
+	var depths []int
 
 	for scanner.Scan() {
 		current, _ := strconv.ParseInt(scanner.Text(), 0, 64)
-		depths = append(depths, current)
+		depths = append(depths, int(current))
 	}
 
 	partOne(depths)

@@ -71,16 +71,16 @@ func partOne() {
 			break
 		}
 	}
-	var score int64 = 0
+	var score int = 0
 	for _, row := range winningCard {
 		for _, s := range row {
 			if s != "X" {
 				n, _ := strconv.ParseInt(s, 0, 64)
-				score += n
+				score += int(n)
 			}
 		}
 	}
-	fmt.Println(fmt.Sprintf("Part One: %d", score*winningNum))
+	fmt.Println(fmt.Sprintf("Part One: %d", score*int(winningNum)))
 }
 
 func partTwo() {
@@ -139,17 +139,17 @@ func partTwo() {
 		}
 	}
 
-	var score int64 = 0
+	var score int = 0
 	for _, row := range winningCard {
 		for _, s := range row {
 			if s != "X" {
 				n, _ := strconv.ParseInt(s, 0, 64)
-				score += n
+				score += int(n)
 			}
 		}
 	}
 
-	fmt.Println(fmt.Sprintf("Part Two: %d", score*winningNum))
+	fmt.Println(fmt.Sprintf("Part Two: %d", score*int(winningNum)))
 }
 
 func main() {

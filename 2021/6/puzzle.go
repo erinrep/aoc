@@ -8,11 +8,28 @@ import (
 	"strings"
 )
 
-type ventLine struct {
-	x1 int64
-	x2 int64
-	y1 int64
-	y2 int64
+const babyFishCycle int = 8
+const resetFishCycle int = 6
+const cycles int = 9
+
+func sum(arr [cycles]int) int {
+	sum := 0
+	for _, x := range arr {
+		sum += x
+	}
+	return sum
+}
+
+func runFishSpawningSim(fish [9]int, numDays int) int {
+	for d := 0; d < numDays; d++ {
+		numNewFish := fish[0]
+		for i := 0; i < babyFishCycle; i++ {
+			fish[i] = fish[i+1]
+		}
+		fish[babyFishCycle] = numNewFish
+		fish[resetFishCycle] += numNewFish
+	}
+	return sum(fish)
 }
 
 func main() {
@@ -22,30 +39,19 @@ func main() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	var rawFish []string
-	var fish []int64
+	var fish [cycles]int
 
 	for scanner.Scan() {
 		rawFish = strings.Split(scanner.Text(), ",")
 	}
 	for _, f := range rawFish {
 		n, _ := strconv.ParseInt(f, 0, 64)
-		fish = append(fish, n)
+		fish[int(n)] += 1
 	}
 
-	numDays := 80
-	var babyFishCycle int64 = 8
-	var resetFishCycle int64 = 6
-	for d := 0; d < numDays; d++ {
-		var newFish []int64
-		for i, f := range fish {
-			if f == 0 {
-				newFish = append(newFish, babyFishCycle)
-				fish[i] = resetFishCycle
-			} else {
-				fish[i] = f - 1
-			}
-		}
-		fish = append(fish, newFish...)
-	}
-	fmt.Println(fmt.Sprintf("Part One: %d", len(fish)))
+	p1 := runFishSpawningSim(fish, 80)
+	fmt.Println(fmt.Sprintf("Part One: %d", p1))
+
+	p2 := runFishSpawningSim(fish, 256)
+	fmt.Println(fmt.Sprintf("Part Two: %d", p2))
 }

@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+const maxHeight int = 9
+
 func inRange(arr []int, num int) bool {
 	if num >= 0 && num < len(arr) {
 		return true
@@ -37,15 +39,15 @@ func partOne(heights [][]int) {
 }
 
 func mapBasins(heights [][]int, basins [][]int, basinNum int, i int, j int) ([][]int, int) {
-	if !inRangeM(heights, i) || heights[i][j] == 9 {
+	if !inRangeM(heights, i) || heights[i][j] == maxHeight {
 		return basins, j
 	}
 	m := j
-	for m-1 >= 0 && heights[i][m-1] != 9 {
+	for m-1 >= 0 && heights[i][m-1] != maxHeight {
 		m--
 	}
 	for m < len(heights[i]) {
-		if heights[i][m] != 9 && basins[i][m] == 0 {
+		if heights[i][m] != maxHeight && basins[i][m] == 0 {
 			//fmt.Println(fmt.Sprintf("%d (%d, %d) is part of basin %d", heights[i][m], i, m, basinNum))
 			basins[i][m] = basinNum
 			basins, _ = mapBasins(heights, basins, basinNum, i+1, m)
@@ -67,7 +69,7 @@ func partTwo(heights [][]int) {
 
 	for i, row := range heights {
 		for j := 0; j < len(row); j++ {
-			if heights[i][j] != 9 && basins[i][j] == 0 {
+			if heights[i][j] != maxHeight && basins[i][j] == 0 {
 				basins, j = mapBasins(heights, basins, basinNum, i, j)
 				basinNum++
 			}

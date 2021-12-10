@@ -107,8 +107,8 @@ func main() {
 		strRow := strings.Split(scanner.Text(), "")
 		var row []int
 		for _, d := range strRow {
-			num, _ := strconv.ParseInt(d, 0, 64)
-			row = append(row, int(num))
+			num, _ := strconv.Atoi(d)
+			row = append(row, num)
 		}
 		heights = append(heights, row)
 	}

@@ -45,8 +45,8 @@ func main() {
 		rawFish = strings.Split(scanner.Text(), ",")
 	}
 	for _, f := range rawFish {
-		n, _ := strconv.ParseInt(f, 0, 64)
-		fish[int(n)] += 1
+		n, _ := strconv.Atoi(f)
+		fish[n] += 1
 	}
 
 	p1 := runFishSpawningSim(fish, 80)

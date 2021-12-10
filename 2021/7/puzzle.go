@@ -64,14 +64,14 @@ func main() {
 	minPosition := 0
 	maxPosition := 0
 	for _, p := range strPositions {
-		n, _ := strconv.ParseInt(p, 0, 64)
-		if int(n) > maxPosition {
-			maxPosition = int(n)
+		n, _ := strconv.Atoi(p)
+		if n > maxPosition {
+			maxPosition = n
 		}
-		if int(n) < minPosition {
-			minPosition = int(n)
+		if n < minPosition {
+			minPosition = n
 		}
-		positions = append(positions, int(n))
+		positions = append(positions, n)
 	}
 
 	partOne(positions, minPosition, maxPosition)

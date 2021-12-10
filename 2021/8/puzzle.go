@@ -104,10 +104,8 @@ func partTwo(entries []entry) {
 				}
 			}
 		}
-		str := strings.Join(answer, "")
-		str = strings.TrimLeft(str, "0") // pesky leading zeros don't ParseInt well
-		value, _ := strconv.ParseInt(str, 0, 64)
-		answers = append(answers, int(value))
+		value, _ := strconv.Atoi(strings.Join(answer, ""))
+		answers = append(answers, value)
 	}
 
 	//calculate the total of all the translated outputs

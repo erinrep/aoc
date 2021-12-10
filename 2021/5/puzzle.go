@@ -110,11 +110,11 @@ func main() {
 		coord := strings.Split(scanner.Text(), " -> ")
 		one := strings.Split(coord[0], ",")
 		two := strings.Split(coord[1], ",")
-		x1, _ := strconv.ParseInt(one[0], 0, 64)
-		y1, _ := strconv.ParseInt(one[1], 0, 64)
-		x2, _ := strconv.ParseInt(two[0], 0, 64)
-		y2, _ := strconv.ParseInt(two[1], 0, 64)
-		vl := ventLine{x1: int(x1), x2: int(x2), y1: int(y1), y2: int(y2)}
+		x1, _ := strconv.Atoi(one[0])
+		y1, _ := strconv.Atoi(one[1])
+		x2, _ := strconv.Atoi(two[0])
+		y2, _ := strconv.Atoi(two[1])
+		vl := ventLine{x1: x1, x2: x2, y1: y1, y2: y2}
 		ventLines = append(ventLines, vl)
 		if vl.x1 > maxX {
 			maxX = vl.x1

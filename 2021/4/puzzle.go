@@ -48,7 +48,7 @@ func partOne() {
 	cards = append(cards, card{numbers: cardNums})
 
 	var winningCard [][]string
-	var winningNum int64
+	var winningNum int
 	for _, n := range numbers {
 		for cardNum, c := range cards {
 			for y, row := range c.numbers {
@@ -63,7 +63,7 @@ func partOne() {
 			}
 			if contains(c.columnCounts[:], 5) || contains(c.rowCounts[:], 5) {
 				winningCard = c.numbers
-				winningNum, _ = strconv.ParseInt(n, 0, 64)
+				winningNum, _ = strconv.Atoi(n)
 				break
 			}
 		}
@@ -75,12 +75,12 @@ func partOne() {
 	for _, row := range winningCard {
 		for _, s := range row {
 			if s != "X" {
-				n, _ := strconv.ParseInt(s, 0, 64)
-				score += int(n)
+				n, _ := strconv.Atoi(s)
+				score += n
 			}
 		}
 	}
-	fmt.Println(fmt.Sprintf("Part One: %d", score*int(winningNum)))
+	fmt.Println(fmt.Sprintf("Part One: %d", score*winningNum))
 }
 
 func partTwo() {
@@ -110,7 +110,7 @@ func partTwo() {
 	winners = append(winners, 0)
 
 	var winningCard [][]string
-	var winningNum int64
+	var winningNum int
 	isFinalWinner := false
 	for _, n := range numbers {
 		for cardNum, c := range cards {
@@ -126,7 +126,7 @@ func partTwo() {
 			}
 			if contains(c.columnCounts[:], 5) || contains(c.rowCounts[:], 5) {
 				winningCard = c.numbers
-				winningNum, _ = strconv.ParseInt(n, 0, 64)
+				winningNum, _ = strconv.Atoi(n)
 				winners[cardNum] = 1
 				if !contains(winners, 0) {
 					isFinalWinner = true
@@ -143,13 +143,13 @@ func partTwo() {
 	for _, row := range winningCard {
 		for _, s := range row {
 			if s != "X" {
-				n, _ := strconv.ParseInt(s, 0, 64)
-				score += int(n)
+				n, _ := strconv.Atoi(s)
+				score += n
 			}
 		}
 	}
 
-	fmt.Println(fmt.Sprintf("Part Two: %d", score*int(winningNum)))
+	fmt.Println(fmt.Sprintf("Part Two: %d", score*winningNum))
 }
 
 func main() {

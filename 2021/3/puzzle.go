@@ -21,8 +21,8 @@ func partOne(diagnostics [][]string) {
 			epsilonRate = append(epsilonRate, "1")
 		}
 	}
-	gammaRateDecimal, _ := strconv.ParseInt(strings.Join(gammaRate, ""), 2, 64)
-	epsilonRateDecimal, _ := strconv.ParseInt(strings.Join(epsilonRate, ""), 2, 64)
+	gammaRateDecimal, _ := strconv.ParseInt(strings.Join(gammaRate, ""), 2, 0)
+	epsilonRateDecimal, _ := strconv.ParseInt(strings.Join(epsilonRate, ""), 2, 0)
 
 	fmt.Println(fmt.Sprintf("Part One: %d", gammaRateDecimal*epsilonRateDecimal))
 }
@@ -74,8 +74,8 @@ func partTwo(diagnostics [][]string) {
 			co2ScrubberRating = matchingBitsInPosition(co2ScrubberRating, i, co2ScrubberRatingToMatch)
 		}
 	}
-	ogr, _ := strconv.ParseInt(strings.Join(oxygenGeneratorRating[0], ""), 2, 64)
-	co2sr, _ := strconv.ParseInt(strings.Join(co2ScrubberRating[0], ""), 2, 64)
+	ogr, _ := strconv.ParseInt(strings.Join(oxygenGeneratorRating[0], ""), 2, 0)
+	co2sr, _ := strconv.ParseInt(strings.Join(co2ScrubberRating[0], ""), 2, 0)
 	fmt.Println(fmt.Sprintf("Part Two: %d", ogr*co2sr))
 }
 

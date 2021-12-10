@@ -42,8 +42,8 @@ func main() {
 	var depths []int
 
 	for scanner.Scan() {
-		current, _ := strconv.ParseInt(scanner.Text(), 0, 64)
-		depths = append(depths, int(current))
+		current, _ := strconv.Atoi(scanner.Text())
+		depths = append(depths, current)
 	}
 
 	partOne(depths)

@@ -87,7 +87,6 @@ func main() {
 		scores = append(scores, score)
 	}
 	sort.Ints(scores)
-	why := len(scores) / 2
-	middleIndex := math.Round(float64(why))
+	middleIndex := math.Round(float64(len(scores) / 2))
 	fmt.Println(fmt.Sprintf("Part Two: %d", scores[int(middleIndex)]))
 }

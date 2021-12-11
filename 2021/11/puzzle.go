@@ -42,9 +42,9 @@ func checkFlashes(octopuses [][]int, i int, j int, flashMap map[string]bool) {
 	}
 }
 
-func partOne(octopuses [][]int) {
+func partOne(octopuses [][]int, steps int) {
 	totalFlashes := 0
-	for step := 1; step <= 100; step++ {
+	for step := 1; step <= steps; step++ {
 		flashMap := make(map[string]bool)
 		for i, row := range octopuses {
 			for j := range row {
@@ -69,7 +69,7 @@ func partTwo(octopuses [][]int) {
 				checkFlashes(octopuses, i, j, flashMap)
 			}
 		}
-		if len(flashMap) == 100 {
+		if len(flashMap) == len(octopuses)*len(octopuses[0]) {
 			break
 		}
 		step++
@@ -99,6 +99,6 @@ func main() {
 		octopuses2 = append(octopuses2, row2)
 	}
 
-	partOne(octopuses)
+	partOne(octopuses, 100)
 	partTwo(octopuses2)
 }

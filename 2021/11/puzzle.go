@@ -55,6 +55,23 @@ func partOne(octopuses [][]int) {
 	fmt.Println(fmt.Sprintf("Part One: %d", totalFlashes))
 }
 
+func partTwo(octopuses [][]int) {
+	step := 1
+	for {
+		flashMap := make(map[string]bool)
+		for i, row := range octopuses {
+			for j := range row {
+				checkFlashes(octopuses, i, j, flashMap)
+			}
+		}
+		if len(flashMap) == 100 {
+			break
+		}
+		step++
+	}
+	fmt.Println(fmt.Sprintf("Part Two: %d", step))
+}
+
 func main() {
 	fmt.Println("Day 6: Lanternfish")
 
@@ -62,16 +79,21 @@ func main() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	var octopuses [][]int
+	var octopuses2 [][]int
 
 	for scanner.Scan() {
 		strRow := strings.Split(scanner.Text(), "")
 		var row []int
+		var row2 []int
 		for _, x := range strRow {
 			octopus, _ := strconv.Atoi(x)
 			row = append(row, octopus)
+			row2 = append(row2, octopus)
 		}
 		octopuses = append(octopuses, row)
+		octopuses2 = append(octopuses2, row2)
 	}
 
 	partOne(octopuses)
+	partTwo(octopuses2)
 }

@@ -17,6 +17,13 @@ func outOfRange(octopuses [][]int, i int, j int) bool {
 	return false
 }
 
+func printGrid(octopuses [][]int, step int) {
+	fmt.Println(fmt.Sprintf("After step %d:", step))
+	for _, r := range octopuses {
+		fmt.Println(r)
+	}
+}
+
 func checkFlashes(octopuses [][]int, i int, j int, flashMap map[string]bool) {
 	if outOfRange(octopuses, i, j) {
 		return
@@ -52,15 +59,14 @@ func partOne(octopuses [][]int, steps int) {
 			}
 		}
 		totalFlashes += len(flashMap)
-		// fmt.Println(fmt.Sprintf("After step %d:", step))
-		// for _, r := range octopuses {
-		// 	fmt.Println(r)
-		// }
+		//printGrid(octopuses, step)
 	}
+
 	fmt.Println(fmt.Sprintf("Part One: %d", totalFlashes))
 }
 
 func partTwo(octopuses [][]int) {
+	totalOctopuses := len(octopuses) * len(octopuses[0])
 	step := 1
 	for {
 		flashMap := make(map[string]bool)
@@ -69,11 +75,12 @@ func partTwo(octopuses [][]int) {
 				checkFlashes(octopuses, i, j, flashMap)
 			}
 		}
-		if len(flashMap) == len(octopuses)*len(octopuses[0]) {
+		if len(flashMap) == totalOctopuses {
 			break
 		}
 		step++
 	}
+
 	fmt.Println(fmt.Sprintf("Part Two: %d", step))
 }
 

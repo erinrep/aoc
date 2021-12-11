@@ -10,31 +10,28 @@ import (
 
 const maxEnergy int = 9
 
-func checkFlashes(octopuses [][]int, i int, j int, flashMap map[string]bool) int {
+func checkFlashes(octopuses [][]int, i int, j int, flashMap map[string]bool) {
 	if i < 0 || i >= len(octopuses) || j < 0 || j >= len(octopuses[i]) {
-		return 0
+		return
 	}
 	coords := fmt.Sprintf("(%d, %d)", i, j)
 	if flashMap[coords] {
-		return 0
+		return
 	}
 	energy := octopuses[i][j]
 	if energy == maxEnergy {
 		flashMap[coords] = true
 		octopuses[i][j] = 0
-		f := 0
-		f += checkFlashes(octopuses, i, j+1, flashMap)
-		f += checkFlashes(octopuses, i+1, j+1, flashMap)
-		f += checkFlashes(octopuses, i+1, j, flashMap)
-		f += checkFlashes(octopuses, i+1, j-1, flashMap)
-		f += checkFlashes(octopuses, i, j-1, flashMap)
-		f += checkFlashes(octopuses, i-1, j-1, flashMap)
-		f += checkFlashes(octopuses, i-1, j, flashMap)
-		f += checkFlashes(octopuses, i-1, j+1, flashMap)
-		return f + 1
+		checkFlashes(octopuses, i, j+1, flashMap)
+		checkFlashes(octopuses, i+1, j+1, flashMap)
+		checkFlashes(octopuses, i+1, j, flashMap)
+		checkFlashes(octopuses, i+1, j-1, flashMap)
+		checkFlashes(octopuses, i, j-1, flashMap)
+		checkFlashes(octopuses, i-1, j-1, flashMap)
+		checkFlashes(octopuses, i-1, j, flashMap)
+		checkFlashes(octopuses, i-1, j+1, flashMap)
 	} else {
 		octopuses[i][j] = energy + 1
-		return 0
 	}
 }
 
@@ -44,9 +41,10 @@ func partOne(octopuses [][]int) {
 		flashMap := make(map[string]bool)
 		for i, row := range octopuses {
 			for j := range row {
-				totalFlashes += checkFlashes(octopuses, i, j, flashMap)
+				checkFlashes(octopuses, i, j, flashMap)
 			}
 		}
+		totalFlashes += len(flashMap)
 		// fmt.Println(fmt.Sprintf("After step %d:", step))
 		// for _, r := range octopuses {
 		// 	fmt.Println(r)

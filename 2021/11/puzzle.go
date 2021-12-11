@@ -10,8 +10,15 @@ import (
 
 const maxEnergy int = 9
 
-func checkFlashes(octopuses [][]int, i int, j int, flashMap map[string]bool) {
+func outOfRange(octopuses [][]int, i int, j int) bool {
 	if i < 0 || i >= len(octopuses) || j < 0 || j >= len(octopuses[i]) {
+		return true
+	}
+	return false
+}
+
+func checkFlashes(octopuses [][]int, i int, j int, flashMap map[string]bool) {
+	if outOfRange(octopuses, i, j) {
 		return
 	}
 	coords := fmt.Sprintf("(%d, %d)", i, j)
@@ -71,7 +78,7 @@ func partTwo(octopuses [][]int) {
 }
 
 func main() {
-	fmt.Println("Day 6: Lanternfish")
+	fmt.Println("Day 11: Dumbo Octopus")
 
 	file, _ := os.Open("input.txt")
 	defer file.Close()

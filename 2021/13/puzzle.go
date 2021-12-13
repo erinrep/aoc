@@ -119,7 +119,6 @@ func main() {
 	}
 
 	folded := fold(paper, folds[0])
-	//printPaper(folded)
 	total := 0
 	for _, row := range folded {
 		for _, val := range row {
@@ -129,4 +128,10 @@ func main() {
 		}
 	}
 	fmt.Println(fmt.Sprintf("Part One: %d", total))
+
+	for i := 1; i < len(folds); i++ {
+		folded = fold(folded, folds[i])
+	}
+	fmt.Println("Part Two:")
+	printPaper(folded)
 }

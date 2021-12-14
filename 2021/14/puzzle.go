@@ -51,12 +51,9 @@ func partOne(sequence []string, rules map[string]string, cycles int) int {
 
 func partTwo(sequence []string, rules map[string]string, cycles int) int {
 	elems := make(map[string]int)
-	for _, l := range sequence {
-		elems[l]++
-	}
-
 	pairs := make(map[string]int)
 	for i, l := range sequence {
+		elems[l]++
 		if i < len(sequence)-1 {
 			pair := fmt.Sprintf("%s%s", l, sequence[i+1])
 			pairs[pair]++
@@ -67,18 +64,13 @@ func partTwo(sequence []string, rules map[string]string, cycles int) int {
 		newPairs := make(map[string]int)
 		for k, v := range pairs {
 			if v != 0 {
-				letters := strings.Split(k, "")
 				elems[rules[k]] += v
-				p1 := fmt.Sprintf("%s%s", letters[0], rules[k])
-				p2 := fmt.Sprintf("%s%s", rules[k], letters[1])
-				newPairs[p1] += v
-				newPairs[p2] += v
-				pairs[k] -= v
+				letters := strings.Split(k, "")
+				newPairs[fmt.Sprintf("%s%s", letters[0], rules[k])] += v
+				newPairs[fmt.Sprintf("%s%s", rules[k], letters[1])] += v
 			}
 		}
-		for k, v := range newPairs {
-			pairs[k] += v
-		}
+		pairs = newPairs
 	}
 
 	leastCommon, mostCommon := leastAndMostCommon(elems)

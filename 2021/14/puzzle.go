@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func insertPairs(sequence []string, rules map[string]string, elems map[string]int) []string {
+func insertLetters(sequence []string, rules map[string]string, elems map[string]int) []string {
 	var newSequence []string
 	for i, letter := range sequence {
 		newSequence = append(newSequence, letter)
@@ -18,6 +18,19 @@ func insertPairs(sequence []string, rules map[string]string, elems map[string]in
 		}
 	}
 	return newSequence
+}
+
+func mapPairs(pairs map[string]int, rules map[string]string, elems map[string]int) map[string]int {
+	newPairs := make(map[string]int)
+	for k, v := range pairs {
+		if v != 0 {
+			elems[rules[k]] += v
+			letters := strings.Split(k, "")
+			newPairs[fmt.Sprintf("%s%s", letters[0], rules[k])] += v
+			newPairs[fmt.Sprintf("%s%s", rules[k], letters[1])] += v
+		}
+	}
+	return newPairs
 }
 
 func leastAndMostCommon(elems map[string]int) (string, string) {
@@ -42,7 +55,7 @@ func partOne(sequence []string, rules map[string]string, cycles int) int {
 	}
 
 	for i := 0; i < cycles; i++ {
-		sequence = insertPairs(sequence, rules, elems)
+		sequence = insertLetters(sequence, rules, elems)
 	}
 
 	leastCommon, mostCommon := leastAndMostCommon(elems)
@@ -61,16 +74,7 @@ func partTwo(sequence []string, rules map[string]string, cycles int) int {
 	}
 
 	for i := 0; i < cycles; i++ {
-		newPairs := make(map[string]int)
-		for k, v := range pairs {
-			if v != 0 {
-				elems[rules[k]] += v
-				letters := strings.Split(k, "")
-				newPairs[fmt.Sprintf("%s%s", letters[0], rules[k])] += v
-				newPairs[fmt.Sprintf("%s%s", rules[k], letters[1])] += v
-			}
-		}
-		pairs = newPairs
+		pairs = mapPairs(pairs, rules, elems)
 	}
 
 	leastCommon, mostCommon := leastAndMostCommon(elems)

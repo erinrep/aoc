@@ -2,6 +2,7 @@ Requires Go https://go.dev/doc/install
 
 ```
 go run puzzle.go
+python puzzle.py
 ```
 
 --- Day 1: Sonar Sweep ---

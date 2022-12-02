@@ -1,4 +1,4 @@
-print("Day 1: Rock Paper Scissors")
+print("Day 2: Rock Paper Scissors")
 
 with open('input.txt', encoding="utf-8") as f:
   strategy = list(f)

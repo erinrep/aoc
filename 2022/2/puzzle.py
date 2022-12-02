@@ -38,9 +38,9 @@ play_scores = {
 
 totalScore = 0
 for r in range(len(strategy)):
-  plays = strategy[r].replace('\n', '').split(" ")
-  totalScore += outcomes[plays[0]][plays[1]]
-  totalScore += play_scores[plays[1]]
+  [their_play, my_play] = strategy[r].replace('\n', '').split(" ")
+  totalScore += outcomes[their_play][my_play]
+  totalScore += play_scores[my_play]
 
 print("Part One: ", totalScore)
 
@@ -64,9 +64,9 @@ what_to_play = {
 
 totalScore = 0
 for r in range(len(strategy)):
-  plays = strategy[r].replace('\n', '').split(" ")
-  my_play = what_to_play[plays[1]][plays[0]]
-  totalScore += outcomes[plays[0]][my_play]
+  [their_play, desired_outcome] = strategy[r].replace('\n', '').split(" ")
+  my_play = what_to_play[desired_outcome][their_play]
+  totalScore += outcomes[their_play][my_play]
   totalScore += play_scores[my_play]
 
 print("Part Two: ", totalScore)

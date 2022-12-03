@@ -5,10 +5,10 @@ def intersection(lst1, lst2):
   return lst3
 
 def priority(c):
-  if int(ord(c)) >= ord('a'):
-    return int(ord(c) - 96)
+  if ord(c) >= ord('a'):
+    return ord(c) - 96
   else:
-    return int(ord(c) - 38)
+    return ord(c) - 38
 
 with open('input.txt', encoding="utf-8") as f:
   contents = [value.replace('\n', '') for value in list(f)]

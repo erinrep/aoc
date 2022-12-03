@@ -37,8 +37,8 @@ play_scores = {
 }
 
 totalScore = 0
-for r in range(len(strategy)):
-  [their_play, my_play] = strategy[r].replace('\n', '').split(" ")
+for i in range(len(strategy)):
+  [their_play, my_play] = strategy[i].replace('\n', '').split(" ")
   totalScore += outcomes[their_play][my_play]
   totalScore += play_scores[my_play]
 
@@ -63,8 +63,8 @@ what_to_play = {
 }
 
 totalScore = 0
-for r in range(len(strategy)):
-  [their_play, desired_outcome] = strategy[r].replace('\n', '').split(" ")
+for i in range(len(strategy)):
+  [their_play, desired_outcome] = strategy[i].replace('\n', '').split(" ")
   my_play = what_to_play[desired_outcome][their_play]
   totalScore += outcomes[their_play][my_play]
   totalScore += play_scores[my_play]

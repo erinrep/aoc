@@ -4,8 +4,7 @@ TARGET_INDEX = 3
 COUNT_INDEX = 1
 DESTINATION_INDEX = 5
 
-def move_crates(rows, instructions, part_one):
-  # transpose list of rows into columns
+def get_stacks_from_rows(rows):
   transposed_tuples = list(zip(*rows))
   stacks = [list(sublist) for sublist in transposed_tuples]
 
@@ -13,7 +12,9 @@ def move_crates(rows, instructions, part_one):
   for i in range(len(stacks)):
     stacks[i] = [j for j in stacks[i] if j != '']
 
-  # move items
+  return stacks
+
+def move_crates(stacks, instructions, part_one):
   for i in range(len(instructions)):
     target = int(instructions[i][TARGET_INDEX])-1
     count = int(instructions[i][COUNT_INDEX])
@@ -39,11 +40,12 @@ with open('input.txt', encoding="utf-8") as f:
 rows = []
 instructions = []
 for i in range(len(supplies)):
+  # leave empty items in list for later transposing
   row = supplies[i].replace("    ", " ").split(" ")
   if row[0] == 'move':
     instructions.append(row)
   elif supplies[i] != '' and row[1] != '1':
     rows.append(row)
 
-print("Part One: ", get_first_items(move_crates(rows, instructions, True)))
-print("Part Two: ", get_first_items(move_crates(rows, instructions, False)))
+print("Part One: ", get_first_items(move_crates(get_stacks_from_rows(rows), instructions, True)))
+print("Part Two: ", get_first_items(move_crates(get_stacks_from_rows(rows), instructions, False)))

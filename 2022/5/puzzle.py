@@ -9,7 +9,7 @@ def move_crates(rows, instructions, part_one):
   transposed_tuples = list(zip(*rows))
   stacks = [list(sublist) for sublist in transposed_tuples]
 
-  # remove placeholder empty items
+  # remove placeholder empty items needed for transposing
   for i in range(len(stacks)):
     stacks[i] = [j for j in stacks[i] if j != '']
 
@@ -23,8 +23,10 @@ def move_crates(rows, instructions, part_one):
       moving.reverse()
     del stacks[target][:count]
     stacks[destination] = moving + stacks[destination]
-  
-  # get top item in each stack
+
+  return stacks  
+
+def get_first_items(stacks):
   result = ""
   for i in range(len(stacks)):
     result += stacks[i][0].replace("[", "").replace("]", "")
@@ -43,5 +45,5 @@ for i in range(len(supplies)):
   elif supplies[i] != '' and row[1] != '1':
     rows.append(row)
 
-print("Part One: ", move_crates(rows, instructions, True))
-print("Part Two: ", move_crates(rows, instructions, False))
+print("Part One: ", get_first_items(move_crates(rows, instructions, True)))
+print("Part Two: ", get_first_items(move_crates(rows, instructions, False)))

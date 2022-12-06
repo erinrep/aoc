@@ -2,7 +2,7 @@ print("Day 6: Tuning Trouble")
 
 def find_marker(l, size):
   for i in range(len(l)):
-    if(len(set(l[i:i+size])) == len(l[i:i+size])):
+    if(len(set(l[i:i+size])) == size):
       break
   return i + size
 

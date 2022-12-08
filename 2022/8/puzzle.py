@@ -1,6 +1,6 @@
 print("Day 8: Treetop Tree House")
 
-def check_blocked(grid, val, direction, static_coord, start, stop, step):
+def is_blocked(grid, val, direction, static_coord, start, stop, step):
   for k in range(start, stop, step):
     if direction == "vert":
       if grid[k][static_coord] >= val:
@@ -37,11 +37,11 @@ for i in range(len(grid)):
 for i in range(1, len(grid)-1):
   for j in range(1, len(grid)-1):
     val = grid[i][j]
-    up = check_blocked(grid, val, "vert", j, i-1, -1, -1)
-    right = check_blocked(grid, val, "horz", i, j+1, len(grid[i]), 1)
-    down = check_blocked(grid, val, "vert", j, i+1, len(grid[i]), 1)
-    left = check_blocked(grid, val, "horz", i, j-1, -1, -1)
-    if not up or not right or not down or not left:  
+    up_blocked = is_blocked(grid, val, "vert", j, i-1, -1, -1)
+    right_blocked = is_blocked(grid, val, "horz", i, j+1, len(grid[i]), 1)
+    down_blocked = is_blocked(grid, val, "vert", j, i+1, len(grid[i]), 1)
+    left_blocked = is_blocked(grid, val, "horz", i, j-1, -1, -1)
+    if not up_blocked or not right_blocked or not down_blocked or not left_blocked:  
       vis[i][j] = 'o'
 
 total = 0

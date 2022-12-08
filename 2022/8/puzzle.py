@@ -1,25 +1,17 @@
 print("Day 8: Treetop Tree House")
 
-def is_blocked(grid, val, direction, static_coord, start, stop, step):
-  for k in range(start, stop, step):
-    if direction == "vert":
-      if grid[k][static_coord] >= val:
-        return True
-    else:
-      if grid[static_coord][k] >= val:
-        return True
+def is_blocked(val, line):
+  for x in line:
+    if x >= val:
+      return True
   return False
 
-def get_scenic_score(grid, val, direction, static_coord, start, stop, step):
+def get_scenic_score(val, line):
   score = 0
-  for k in range(start, stop, step):
+  for x in line:
     score += 1
-    if direction == "vert":
-      if grid[k][static_coord] >= val:
-        break
-    else:
-      if grid[static_coord][k] >= val:
-        break
+    if x >= val:
+      break
   return score
 
 with open('input.txt', encoding="utf-8") as f:
@@ -37,10 +29,11 @@ for i in range(len(grid)):
 for i in range(1, len(grid)-1):
   for j in range(1, len(grid)-1):
     val = grid[i][j]
-    up_blocked = is_blocked(grid, val, "vert", j, i-1, -1, -1)
-    right_blocked = is_blocked(grid, val, "horz", i, j+1, len(grid[i]), 1)
-    down_blocked = is_blocked(grid, val, "vert", j, i+1, len(grid[i]), 1)
-    left_blocked = is_blocked(grid, val, "horz", i, j-1, -1, -1)
+    col = [grid[k][j] for k in range(len(grid))]
+    up_blocked = is_blocked(val, (col[:i])[::-1])
+    right_blocked = is_blocked(val, grid[i][j+1:])
+    down_blocked = is_blocked(val, col[i+1:])
+    left_blocked = is_blocked(val, (grid[i][:j])[::-1])
     if not up_blocked or not right_blocked or not down_blocked or not left_blocked:  
       vis[i][j] = 'o'
 
@@ -62,10 +55,11 @@ for i in range(len(grid)):
 for i in range(len(grid)):
   for j in range(len(grid)):
     val = grid[i][j]
-    up = get_scenic_score(grid, val, "vert", j, i-1, -1, -1)
-    right = get_scenic_score(grid, val, "horz", i, j+1, len(grid[i]), 1)
-    down = get_scenic_score(grid, val, "vert", j, i+1, len(grid[i]), 1)
-    left = get_scenic_score(grid, val, "horz", i, j-1, -1, -1)
+    col = [grid[k][j] for k in range(len(grid))]
+    up = get_scenic_score(val, (col[:i])[::-1])
+    right = get_scenic_score(val, grid[i][j+1:])
+    down = get_scenic_score(val, col[i+1:])
+    left = get_scenic_score(val, (grid[i][:j])[::-1])
     scores[i][j] = up * right * down * left
 
 candidates = []

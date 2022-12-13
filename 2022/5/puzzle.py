@@ -15,10 +15,10 @@ def get_stacks_from_rows(rows):
   return stacks
 
 def move_crates(stacks, instructions, part_one):
-  for i in range(len(instructions)):
-    target = int(instructions[i][TARGET_INDEX])-1
-    count = int(instructions[i][COUNT_INDEX])
-    destination = int(instructions[i][DESTINATION_INDEX])-1
+  for instruction in instructions:
+    target = int(instruction[TARGET_INDEX])-1
+    count = int(instruction[COUNT_INDEX])
+    destination = int(instruction[DESTINATION_INDEX])-1
     moving = stacks[target][:count]
     if part_one:
       moving.reverse()
@@ -39,12 +39,12 @@ with open('input.txt', encoding="utf-8") as f:
 
 rows = []
 instructions = []
-for i in range(len(supplies)):
+for supply in supplies:
   # leave empty items in list for later transposing
-  row = supplies[i].replace("    ", " ").split(" ")
+  row = supply.replace("    ", " ").split(" ")
   if row[0] == 'move':
     instructions.append(row)
-  elif supplies[i] != '' and row[1] != '1':
+  elif supply != '' and row[1] != '1':
     rows.append(row)
 
 print("Part One: ", get_first_items(move_crates(get_stacks_from_rows(rows), instructions, True)))

@@ -14,8 +14,7 @@ with open('input.txt', encoding="utf-8") as f:
   contents = [value.replace('\n', '') for value in list(f)]
 
 total = 0
-for i in range(len(contents)):
-  items = contents[i]
+for items in contents:
   half = int(len(items)/2)
   in_both = intersection(items[:half], items[half:])
   total += priority(in_both[0])
@@ -28,8 +27,8 @@ for i in range(0, len(contents), group_size):
   groups.append(contents[i:i+group_size])
 
 total = 0
-for i in range(len(groups)):
-  grp1, grp2, grp3 = groups[i]
+for g in groups:
+  grp1, grp2, grp3 = g
   badge = intersection(intersection(grp1, grp2), grp3)
   total += priority(badge[0])
 

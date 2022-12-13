@@ -1,7 +1,7 @@
 print("Day 2: Rock Paper Scissors")
 
 with open('input.txt', encoding="utf-8") as f:
-  strategy = list(f)
+  strategy = [x.replace('\n', '') for x in list(f)]
 
 opponent_rock = 'A'
 opponent_paper = 'B'
@@ -37,8 +37,8 @@ play_scores = {
 }
 
 totalScore = 0
-for i in range(len(strategy)):
-  [their_play, my_play] = strategy[i].replace('\n', '').split(" ")
+for s in strategy:
+  [their_play, my_play] = s.split(" ")
   totalScore += outcomes[their_play][my_play]
   totalScore += play_scores[my_play]
 
@@ -63,8 +63,8 @@ what_to_play = {
 }
 
 totalScore = 0
-for i in range(len(strategy)):
-  [their_play, desired_outcome] = strategy[i].replace('\n', '').split(" ")
+for s in strategy:
+  [their_play, desired_outcome] = s.split(" ")
   my_play = what_to_play[desired_outcome][their_play]
   totalScore += outcomes[their_play][my_play]
   totalScore += play_scores[my_play]

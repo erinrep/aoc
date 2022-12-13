@@ -5,12 +5,12 @@ with open('input.txt', encoding="utf-8") as f:
 
 calories = [0]
 i = 0
-for j in range(len(snacks)):
-  if snacks[j] == '\n':
+for snack in snacks:
+  if snack == '\n':
     i += 1
     calories.append(0)
   else:
-    calories[i] += int(snacks[j])
+    calories[i] += int(snack)
 
 print("Part 1: ", max(calories))
 

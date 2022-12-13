@@ -13,9 +13,9 @@ def compare(left, right):
     if len(left) == len(right):
       return 0
     return -1
-  elif isinstance(left, list) and not isinstance(right, list):
+  elif isinstance(left, list) and isinstance(right, int):
     return compare(left, [right])
-  elif not isinstance(left, list) and isinstance(right, list):
+  elif isinstance(left, int) and isinstance(right, list):
     return compare([left], right)
   else:
     if int(left) > int(right):

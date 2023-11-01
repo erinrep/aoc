@@ -2,8 +2,8 @@ print("Day 1: Not Quite Lisp")
 
 GO_UP = "("
 
-with open('input.txt', encoding="utf-8") as f:
-  directions = list(f.read())
+with open("input.txt", encoding="utf-8") as f:
+    directions = list(f.read())
 
 floor = 0
 for d in directions:

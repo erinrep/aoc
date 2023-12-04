@@ -25,21 +25,19 @@ cards = []
 for line in lines:
     winningNums = line[0].split(": ")[1].split(" ")
     nums = line[1].split(" ")
-    matchingNums = 0
+    numMatching = 0
     for n in nums:
         if n in winningNums:
-            matchingNums += 1
+            numMatching += 1
     cards.append(
         {
-            "winningNums": winningNums,
-            "nums": nums,
-            "matchingNums": matchingNums,
+            "numMatching": numMatching,
             "copies": 1,
         }
     )
 
 for i, card in enumerate(cards):
-    for j in range(card["matchingNums"]):
+    for j in range(card["numMatching"]):
         cards[i + j + 1]["copies"] += card["copies"]
 
 total = 0

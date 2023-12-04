@@ -8,13 +8,13 @@ for line in lines:
     parts = line.split(": ")
     id = parts[0].split(" ")[-1]
     grabs = parts[1].split("; ")
-    max = {"red": 12, "green": 13, "blue": 14}
+    totalCubes = {"red": 12, "green": 13, "blue": 14}
     possible = True
     for g in grabs:
         grab = g.split(", ")
         for c in grab:
             cube = c.split(" ")
-            if int(cube[0]) > max[cube[1]]:
+            if int(cube[0]) > totalCubes[cube[1]]:
                 possible = False
                 break
     if possible:
@@ -26,13 +26,13 @@ total = 0
 for line in lines:
     parts = line.split(": ")
     grabs = parts[1].split("; ")
-    max = {"red": 0, "green": 0, "blue": 0}
+    totalCubes = {"red": 0, "green": 0, "blue": 0}
     for g in grabs:
         grab = g.split(", ")
         for c in grab:
             cube = c.split(" ")
-            if int(cube[0]) > max[cube[1]]:
-                max[cube[1]] = int(cube[0])
-    total += max["red"] * max["green"] * max["blue"]
+            if int(cube[0]) > totalCubes[cube[1]]:
+                totalCubes[cube[1]] = int(cube[0])
+    total += totalCubes["red"] * totalCubes["green"] * totalCubes["blue"]
 
 print("Part 2: ", total)

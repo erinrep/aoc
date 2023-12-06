@@ -8,11 +8,11 @@ with open("input.txt", encoding="utf-8") as f:
 
 totals = []
 for i, raceTime in enumerate(times):
-    winningHoldTimes = []
+    winningHoldTimes = 0
     for holdTime in range(1, int(raceTime) - 1):
         if (int(raceTime) - holdTime) * holdTime > int(distances[i]):
-            winningHoldTimes.append(holdTime)
-    totals.append(len(winningHoldTimes))
+            winningHoldTimes += 1
+    totals.append(winningHoldTimes)
 
 print("Part 1: ", prod(totals))
 

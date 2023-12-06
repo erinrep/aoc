@@ -108,7 +108,6 @@ def mapRange(ranges, map):
     return allTheRanges
 
 
-locations = []
 x = seedRanges
 for map in maps:
     x = mapRange(x, map)

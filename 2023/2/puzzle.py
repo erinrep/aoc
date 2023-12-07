@@ -20,7 +20,7 @@ for line in lines:
     if possible:
         total += int(id)
 
-print("Part 1: ", total)
+print("Part 1:", total)
 
 total = 0
 for line in lines:
@@ -35,4 +35,4 @@ for line in lines:
                 totalCubes[cube[1]] = int(cube[0])
     total += totalCubes["red"] * totalCubes["green"] * totalCubes["blue"]
 
-print("Part 2: ", total)
+print("Part 2:", total)

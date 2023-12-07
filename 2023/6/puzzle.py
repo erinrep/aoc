@@ -14,7 +14,7 @@ for i, raceTime in enumerate(times):
             winningHoldTimes += 1
     totals.append(winningHoldTimes)
 
-print("Part 1: ", prod(totals))
+print("Part 1:", prod(totals))
 
 time = int("".join(times))
 distance = int("".join(distances))
@@ -23,4 +23,4 @@ for h in range(1, time - 1):
     if (time - h) * h > distance:
         winners += 1
 
-print("Part 2: ", winners)
+print("Part 2:", winners)

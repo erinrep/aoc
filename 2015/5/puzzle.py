@@ -13,7 +13,7 @@ for s in strings:
     if threeVowels and doubleLetter and not forbidden:
         numNice += 1
 
-print("Part 1: ", numNice)
+print("Part 1:", numNice)
 
 numNice = 0
 for s in strings:
@@ -22,4 +22,4 @@ for s in strings:
     if pairTwice and sandwich:
         numNice += 1
 
-print("Part 2: ", numNice)
+print("Part 2:", numNice)

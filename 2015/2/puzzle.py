@@ -15,5 +15,5 @@ for p in presents:
     totalPaper += paper + extraPaper
     totalRibbon += ribbon + bow
 
-print("Part 1: ", totalPaper)
-print("Part 2: ", totalRibbon)
+print("Part 1:", totalPaper)
+print("Part 2:", totalRibbon)

@@ -24,7 +24,7 @@ for d in directions:
     x, y = move(d, x, y)
     houses.add(f"{x},{y}")
 
-print("Part 1: ", len(houses))
+print("Part 1:", len(houses))
 
 x = 0
 y = 0
@@ -39,4 +39,4 @@ for idx, d in enumerate(directions):
         rx, ry = move(d, rx, ry)
         houses.add(f"{rx},{ry}")
 
-print("Part 2: ", len(houses))
+print("Part 2:", len(houses))

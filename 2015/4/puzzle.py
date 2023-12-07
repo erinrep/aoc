@@ -15,5 +15,5 @@ def match_hash(key, startswith):
 
 
 input = "yzbqklnj"
-print("Part 1: ", match_hash(input, "00000"))
-print("Part 2: ", match_hash(input, "000000"))  # slow
+print("Part 1:", match_hash(input, "00000"))
+print("Part 2:", match_hash(input, "000000"))  # slow

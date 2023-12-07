@@ -12,7 +12,7 @@ for d in directions:
     else:
         floor -= 1
 
-print("Part 1: ", floor)
+print("Part 1:", floor)
 
 floor = 0
 for idx, d in enumerate(directions):
@@ -21,5 +21,5 @@ for idx, d in enumerate(directions):
     else:
         floor -= 1
     if floor == -1:
-        print("Part 2: ", idx + 1)
+        print("Part2: ", idx + 1)
         break

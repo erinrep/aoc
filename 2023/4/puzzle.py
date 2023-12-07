@@ -19,7 +19,7 @@ for line in lines:
     total += cardValue
 
 
-print("Part 1: ", total)
+print("Part 1:", total)
 
 cards = []
 for line in lines:
@@ -44,4 +44,4 @@ total = 0
 for c in cards:
     total += c["copies"]
 
-print("Part 2: ", total)
+print("Part 2:", total)

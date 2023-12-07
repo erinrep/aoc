@@ -11,7 +11,7 @@ for line in lines:
     calibration = list(re.sub(r"[a-z]", "", line))
     total += int(calibration[0] + calibration[-1])
 
-print("Part 1: ", total)
+print("Part 1:", total)
 
 total = 0
 nums = [
@@ -32,4 +32,4 @@ for line in lines:
     calibration = list(re.sub(r"[a-z]", "", line))
     total += int(calibration[0] + calibration[-1])
 
-print("Part 2: ", total)
+print("Part 2:", total)

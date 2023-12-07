@@ -82,4 +82,4 @@ winnings = []
 for i, hand in enumerate(rankedHands):
     winnings.append(hand[1] * (i + 1))
 
-print("Part 2: ", sum(winnings))
+print("Part 2:", sum(winnings))

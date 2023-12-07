@@ -54,7 +54,7 @@ for y, line in enumerate(lines):
             numStr = ""
 
 
-print("Part 1: ", total)
+print("Part 1:", total)
 
 
 numsWithCoords = []
@@ -118,4 +118,4 @@ for y, line in enumerate(lines):
                 total += nums.pop() * nums.pop()
 
 
-print("Part 2: ", total)
+print("Part 2:", total)

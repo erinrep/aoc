@@ -25,4 +25,4 @@ simScores = []
 for x in lOne:
     simScores.append(x * lTwo.count(x))
 
-print("Part 1:", sum(simScores))
+print("Part 2:", sum(simScores))
